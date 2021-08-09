@@ -16,7 +16,6 @@ def get_contract(token_contract_address, abi=config.ERC20_ABI):
     return web3.eth.contract(address=checksum(token_contract_address), abi=abi)
 
 def get_token_info(contract):
-    # erc20 = get_contract(token_contract, config.ERC20_ABI)
     '获取指定代币总供应量'
     totalsupply_no_decimals = contract.functions.totalSupply().call()  #获取没有精度的总供应量
     decimals = contract.functions.decimals().call()  #获取精度
@@ -25,12 +24,10 @@ def get_token_info(contract):
     name = contract.functions.name().call()
     symbol = contract.functions.symbol().call()
 
-    #print(wbnb_balance())  #查询钱包wbnb余额
     #print(name, symbol, totalsupply, decimals)
     return [name, symbol, totalsupply, decimals]
 
 def get_token_balance(wallet, contract, humanread):
-    # contract = get_contract(token_contract, config.ERC20_ABI)
     tokenblance_no_decimals = contract.functions.balanceOf(checksum(wallet)).call()
     if humanread == 1:
         decimals = contract.functions.decimals().call()  #获取精度
